@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="mis_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/mis_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/mis_colorPrimaryDark</item>
+        <item name="colorAccent">@color/mis_colorAccent</item>
+    </style>
+</resources>
