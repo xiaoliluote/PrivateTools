@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="@dimen/px119"
+        android:layout_height="@dimen/px114"
+        android:src="@drawable/pullup_refresh"
+        android:id="@+id/pullup_img"
+        android:layout_marginTop="@dimen/px20"
+        android:layout_marginBottom="@dimen/px20"
+        android:layout_centerHorizontal="true"
+        />
+    </RelativeLayout>
+</LinearLayout>
