@@ -17,5 +17,5 @@ Step 2:
 Add the dependency
 
     dependencies {
-              implementation 'com.github.xiaoliluote:PrivateTools:0.0.4'
+              implementation 'com.github.xiaoliluote:PrivateTools:0.0.5'
       }
