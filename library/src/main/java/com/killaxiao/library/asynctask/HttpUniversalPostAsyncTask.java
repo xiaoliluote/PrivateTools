@@ -15,6 +15,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by KillaXiao on 2016/8/29.
@@ -31,6 +35,7 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
     private final String ERROR_IO = "{\"statusCode\":-10000002,\"errorMsg\":\"服务器出现故障\"}";
     private final String ERROR_JSON ="{\"statusCode\":-10000003,\"errorMsg\":\"json解析异常\"}";
     private String Request_method ="POST";
+    private HashMap<String,String> mRequestProperty;
 
     /**
      * 不显示dialog的构造函数
@@ -73,6 +78,10 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
 
     public void setRequest_method(String method){
         this.Request_method = method;
+    }
+
+    public void setRequestProperty(HashMap<String,String> requestProperty){
+        this.mRequestProperty =requestProperty;
     }
 
     /**
@@ -118,6 +127,12 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
             connection.setInstanceFollowRedirects(true);
             connection.setRequestProperty("Connection", "keep-alive");
             connection.setRequestProperty("Content-Type", "application/json");
+            if(mRequestProperty != null){
+                for (Map.Entry<String, String> entry : mRequestProperty.entrySet()) {
+                    connection.setRequestProperty(entry.getKey(), entry.getValue());
+                }
+            }
+
             connection.setConnectTimeout(request_time);
             connection.setReadTimeout(request_time);
 
