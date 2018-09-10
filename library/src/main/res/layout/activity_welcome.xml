@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/img_bg"
+        android:src="@drawable/timg2"
+        android:scaleType="fitXY"
+        />
+
+    <com.killaxiao.library.widget.CountDownView
+        android:layout_width="@dimen/px120"
+        android:layout_height="@dimen/px120"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/px50"
+        android:layout_marginRight="@dimen/px50"
+        android:id="@+id/my_countdown"
+        />
+
+</RelativeLayout>

@@ -33,6 +33,24 @@
                 android:id="@+id/bt_photo_album"
                 />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="12dp"
+                android:text="预加载页倒计时效果(倒计时结束关闭页面)"
+                android:id="@+id/bt_countdown"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="12dp"
+                android:text="预加载页倒计时效果(指定跳转页)"
+                android:id="@+id/bt_countdown2"
+                />
+
         </LinearLayout>
 
     </ScrollView>
