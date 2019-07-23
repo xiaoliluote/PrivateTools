@@ -2,6 +2,8 @@ package com.killaxiao.library.asynctask;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 
@@ -31,6 +33,8 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
     private String mUrl;
     private CustomProgressDialog progressDialog;
     private int request_time=10000;
+    private int current_cost_time =0; //记录当前请求消耗的时间
+    private boolean isDelayDialog =false; //是否延时显示dialog，当请求超过2秒还未有结果，则弹dialog
 
     private final String ERROR_IO = "{\"statusCode\":-10000002,\"errorMsg\":\"服务器出现故障\"}";
     private final String ERROR_JSON ="{\"statusCode\":-10000003,\"errorMsg\":\"json解析异常\"}";
@@ -76,6 +80,17 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
         }
     }
 
+    public void setDelayDialog(boolean isDelayDialog){
+        this.isDelayDialog = isDelayDialog;
+        if(isDelayDialog){
+            if(progressDialog == null){
+                progressDialog = CustomProgressDialog.createDialog(mContext);
+                progressDialog.setCancelable(true);
+                progressDialog.setCanceledOnTouchOutside(true);
+            }
+        }
+    }
+
     public void setRequest_method(String method){
         this.Request_method = method;
     }
@@ -106,16 +121,38 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
 
     @Override
     protected void onPreExecute() {
-        if(progressDialog != null){
+        if(progressDialog != null && !isDelayDialog){
             progressDialog.show();
         }
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    if(current_cost_time>=2){
+                        current_cost_time=0;
+                        if(progressDialog != null){
+                            progressDialog.show();
+                        }
+                    }else{
+                        current_cost_time++;
+                        mHandler.sendEmptyMessageDelayed(0,1000);
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     protected JSONObject doInBackground(String... params) {
         JSONObject obj = null;
 
         try {
+            if(isDelayDialog){
+                mHandler.sendEmptyMessage(0);
+            }
             URL url = new URL(mUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(Request_method);
