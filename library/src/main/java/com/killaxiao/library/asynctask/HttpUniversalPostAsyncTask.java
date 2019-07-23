@@ -213,7 +213,7 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-
+        mHandler.removeCallbacksAndMessages(null);
         if(exectu != null) {
             if (jsonObject != null) {
                 if(progressDialog != null){
