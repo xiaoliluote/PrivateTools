@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
     private final String ERROR_JSON ="{\"statusCode\":-10000003,\"errorMsg\":\"json解析异常\"}";
     private String Request_method ="POST";
     private HashMap<String,String> mRequestProperty;
+    private String mParams;
 
     /**
      * 不显示dialog的构造函数
@@ -119,6 +121,10 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
         Log.e(AppConstants.LOG_E,"当前访问网址："+mUrl);
     }
 
+    public void setmParams(String mParams){
+        this.mParams = mParams;
+    }
+
     @Override
     protected void onPreExecute() {
         if(progressDialog != null && !isDelayDialog){
@@ -173,13 +179,13 @@ public class HttpUniversalPostAsyncTask extends AsyncTask<String,String,JSONObje
             connection.setConnectTimeout(request_time);
             connection.setReadTimeout(request_time);
 
-//            if(mParams != null){
-//                connection.setRequestProperty("Content-Length",
-//                        String.valueOf(mParams.getBytes().length));
-//                OutputStream os = connection.getOutputStream();
-//                os.write(mParams.getBytes());
-//                os.flush();
-//            }
+            if(mParams != null){
+                connection.setRequestProperty("Content-Length",
+                        String.valueOf(mParams.getBytes().length));
+                OutputStream os = connection.getOutputStream();
+                os.write(mParams.getBytes());
+                os.flush();
+            }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     connection.getInputStream()));
